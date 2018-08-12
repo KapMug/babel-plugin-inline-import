@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import requireResolve from 'require-resolve';
+import { importSchema } from 'graphql-import';
 
 export default class BabelInlineImportHelper {
   static extensions = [
@@ -36,7 +37,9 @@ export default class BabelInlineImportHelper {
       throw new Error(`Path '${givenPath}' could not be found for '${reference}'`);
     }
 
-    return fs.readFileSync(mod.src).toString();
+    return givenPath.endsWith('.graphql')
+      ? importSchema(mod.src).replace(/`/g, '\\`')
+      : fs.readFileSync(mod.src).toString()
   }
 
   static transformRelativeToRootPath(path, rootPathSuffix) {
