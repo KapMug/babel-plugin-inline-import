@@ -1,6 +1,6 @@
 {
   "name": "@kapmug/babel-plugin-inline-import",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Babel plugin to make raw files importable",
   "author": "Victor Duarte (Quadric ApS) <contact@quadric.net>",
   "license": "MIT",
@@ -25,6 +25,7 @@
     "prepare": "babel -d build/ plugin/"
   },
   "dependencies": {
+    "graphql": "^14.0.2",
     "graphql-import": "^0.7.1",
     "require-resolve": "0.0.2"
   },
