@@ -42,5 +42,8 @@
     "eslint": "^3.4.0",
     "mocha": "^5.2.0",
     "sinon": "^1.17.5"
+  },
+  "publishConfig": {
+    "registry": "https://npm.kapmug.com.br/"
   }
 }
