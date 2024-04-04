@@ -18,24 +18,17 @@ export default class BabelInlineImportHelper {
       : (extensions || BabelInlineImportHelper.extensions);
 
     for (const extension of accept) {
-      if (givenPath.endsWith(extension)) {
-        return true;
-      }
+      if (givenPath.endsWith(extension)) return true;
     }
 
     return false;
   }
 
   static getContents(givenPath, reference) {
-    if (!reference) {
-      throw new Error('"reference" argument must be specified');
-    }
+    if (!reference) throw new Error('"reference" argument must be specified');
 
     const mod = requireResolve(givenPath, path.resolve(reference));
-
-    if (!mod || !mod.src) {
-      throw new Error(`Path '${givenPath}' could not be found for '${reference}'`);
-    }
+    if (!mod || !mod.src) throw new Error(`Path '${givenPath}' could not be found for '${reference}'`);
 
     return givenPath.endsWith('.graphql')
       ? importSchema(mod.src).replace(/`/g, '\\`')
@@ -47,17 +40,13 @@ export default class BabelInlineImportHelper {
       const withoutRoot = path.substring(1, path.length);
       return `${BabelInlineImportHelper.root}${rootPathSuffix || ''}/${withoutRoot}`;
     }
-    if (typeof path === 'string') {
-      return path;
-    }
+    if (typeof path === 'string') return path;
     throw new Error('ERROR: No path passed');
   }
 
   static hasRoot(string) {
-    if (typeof string !== 'string') {
-      return false;
-    }
-
-    return string.substring(0, 1) === '/';
+    return (typeof string !== 'string')
+      ? false
+      : string.substring(0, 1) === '/';
   }
 }
